@@ -13,6 +13,8 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+
+
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -72,6 +74,8 @@ export default function LoginPage() {
       onClick={onLogin}
       >Login</button>}
       <Link href="/signup">Create an account</Link>
+      <Link href="/forgotpassword">Forgot password?</Link>
+
     </div>
   );
 }
