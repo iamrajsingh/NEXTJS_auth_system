@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import  {useRouter} from  "next/navigation";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -9,9 +10,13 @@ export default function ResetPassword() {
   const [token, setToken] = useState("");
   const [verified, setVerified] = useState(false);
 
+  const router = useRouter();
 
   const resetPassword = async () => {
     await axios.post('/api/users/resetpassword', {password: confirmPassword, token: token});
+    setPassword("")
+    setConformPassword("");
+    router.push('/login')
   };
 
   useEffect(() => {
