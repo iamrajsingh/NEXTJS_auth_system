@@ -14,9 +14,11 @@ export default function SignupPage() {
   });
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("Password must be 8 character long!");
 
   const onSignup = async () => {
-    try {
+    if(user.password.length >= 8) {
+      try {
       setLoading(true);
       const response = await axios.post("api/users/signup", user);
       toast.success("Account Created");
@@ -28,6 +30,10 @@ export default function SignupPage() {
     } finally {
       setLoading(false);
     }
+    }else {
+      toast.error(error);
+    }
+    
   };
 
   useEffect(() => {

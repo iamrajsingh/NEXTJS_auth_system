@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast } from "react-hot-toast/headless";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
 
@@ -17,22 +17,28 @@ export default function LoginPage() {
 
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [error, setError] = useState("Password must be 8 character long!");
   const onLogin = async () => {
-    try {
-      setLoading(true);
-    const response = await axios.post("/api/users/login", user);
 
-    console.log("Login success", response.data);
-    toast.success("Login success");
-    router.push("/profile")
-      
-    } catch (error:any) {
-      console.log("Login failed", error.message)
-      toast.error(error.message);
-    }finally{
-      setLoading(false)
+    if(user.password.length >= 8) {
+      try {
+        setLoading(true);
+        const response = await axios.post("/api/users/login", user);
+    
+        console.log("Login success", response.data);
+        toast.success("Login success");
+        router.push("/profile");
+          
+        } catch (error:any) {
+          console.log("Login failed", error.message)
+          toast.error("Check your email and password!");
+        }finally{
+          setLoading(false)
+        }
+    }else{
+        toast.error(error);
     }
+    
   };
 
   useEffect(() => {
