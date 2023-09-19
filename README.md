@@ -1,6 +1,4 @@
-### This project is in progress
-
-## Getting Started
+### Getting Started
 
 First, Download the dependencies:
 
